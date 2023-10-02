@@ -7,7 +7,7 @@ import {
   REGISTRATION_ROUTE,
   SHOP_ROUTE,
 } from "../utils/consts";
-import useUserStore from "@/stores/user";
+import { useUserStore } from "@/stores/user";
 import ShopView from "../views/ShopView.vue";
 
 const router = createRouter({
@@ -70,9 +70,10 @@ router.beforeEach((to, from, next) => {
     return;
   }
 
-  const store = useUserStore();
+  const userStore = useUserStore();
+  const { userLoggedIn } = userStore;
 
-  if (store.userLoggedIn) {
+  if (userLoggedIn) {
     next();
   } else {
     next({ name: "shop" });

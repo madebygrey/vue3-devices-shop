@@ -23,10 +23,10 @@ export default defineStore("devices", {
   getters: {
     getTypes(state) {
         return state.types
-    }
+    },
     getBrands(state) {
         return state.brands
-    }
+    },
     getDevices(state) {
         return state.devices
     }
