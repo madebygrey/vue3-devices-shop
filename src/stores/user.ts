@@ -3,7 +3,7 @@ import { ref } from "vue";
 // import { auth, usersCollection } from "@/includes/firebase";
 
 export const useUserStore = defineStore("user", () => {
-  const userLoggedIn = ref(false);
+  const userLoggedIn = ref(true);
   function setUserLoggedIn(state: boolean) {
     userLoggedIn.value = state;
   }

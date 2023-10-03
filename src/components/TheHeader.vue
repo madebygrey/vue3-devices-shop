@@ -12,7 +12,7 @@
             </router-link>
           </li>
           <li class="nav-item">
-            <router-link class="nav-link" :to="LOGIN_ROUTE">Войти</router-link>
+            <router-link class="nav-link" :to="LOGIN_ROUTE">Выйти</router-link>
           </li>
         </template>
         <template v-else>
