@@ -1,65 +1,80 @@
 import { defineStore } from "pinia";
+import { ref } from "vue";
 
-export default defineStore("devices", {
-  state: () => ({
-    types: [
-      { id: 1, name: "Холодильники" },
-      { id: 2, name: "Смартфоны" },
-    ],
-    brands: [
-      { id: 1, name: "Samsung" },
-      { id: 2, name: "Apple" },
-    ],
-    devices: [
-      {
-        id: 1,
-        name: "Iphone 12 Pro",
-        price: 25000,
-        raing: 5,
-        img: "https://5.imimg.com/data5/SELLER/Default/2021/1/WI/AB/HP/14753644/iphone-12-pro-max-2-.jpg",
-      },
-    ],
-  }),
-  getters: {
-    getTypes(state) {
-        return state.types
+export const useDevicesStore = defineStore("devices", () => {
+  const types = ref([
+    { id: 1, name: "Холодильники" },
+    { id: 2, name: "Смартфоны" },
+    { id: 3, name: "Ноутбуки" },
+    { id: 4, name: "Телевизоры" },
+  ]);
+  const brands = ref([
+    { id: 1, name: "Samsung" },
+    { id: 2, name: "Apple" },
+    { id: 3, name: "Lenovo" },
+    { id: 4, name: "Asus" },
+  ]);
+  const devices = ref([
+    {
+      id: 1,
+      name: "Iphone 12 Pro",
+      price: 25000,
+      rating: 5,
+      img: "https://5.imimg.com/data5/SELLER/Default/2021/1/WI/AB/HP/14753644/iphone-12-pro-max-2-.jpg",
     },
-    getBrands(state) {
-        return state.brands
+    {
+      id: 2,
+      name: "Iphone 12 Pro",
+      price: 15000,
+      rating: 3,
+      img: "https://5.imimg.com/data5/SELLER/Default/2021/1/WI/AB/HP/14753644/iphone-12-pro-max-2-.jpg",
     },
-    getDevices(state) {
-        return state.devices
-    }
+    {
+      id: 3,
+      name: "Iphone 12 Pro",
+      price: 5000,
+      rating: 5,
+      img: "https://5.imimg.com/data5/SELLER/Default/2021/1/WI/AB/HP/14753644/iphone-12-pro-max-2-.jpg",
+    },
+    {
+      id: 4,
+      name: "Iphone 5",
+      price: 2000,
+      rating: 1,
+      img: "https://5.imimg.com/data5/SELLER/Default/2021/1/WI/AB/HP/14753644/iphone-12-pro-max-2-.jpg",
+    },
+    {
+      id: 5,
+      name: "Iphone 12 Pro",
+      price: 5000,
+      rating: 5,
+      img: "https://5.imimg.com/data5/SELLER/Default/2021/1/WI/AB/HP/14753644/iphone-12-pro-max-2-.jpg",
+    },
+    {
+      id: 6,
+      name: "Iphone 5",
+      price: 2000,
+      rating: 1,
+      img: "https://5.imimg.com/data5/SELLER/Default/2021/1/WI/AB/HP/14753644/iphone-12-pro-max-2-.jpg",
+    },
+  ]);
+  const selectedType = ref({ id: 0, name: "" });
+  const selectedBrand = ref({ id: 0, name: "" });
+
+  function setSelectedType(state) {
+    selectedType.value = state;
   }
-  // actions: {
-  //   async register(values) {
-  //     const userCred = await auth.createUserWithEmailAndPassword(
-  //       values.email,
-  //       values.password
-  //     );
+  function setSelectedBrand(state) {
+    selectedBrand.value = state;
+  }
 
-  //     await usersCollection.doc(userCred.user.uid).set({
-  //       name: values.name,
-  //       email: values.email,
-  //       age: values.age,
-  //       country: values.country,
-  //     });
-
-  //     await userCred.user.updateProfile({
-  //       displayName: values.name,
-  //     });
-
-  //     this.userLoggedIn = true;
-  //   },
-  //   async authenticate(values) {
-  //     await auth.signInWithEmailAndPassword(values.email, values.password);
-
-  //     this.userLoggedIn = true;
-  //   },
-  //   async signOut() {
-  //     await auth.signOut();
-
-  //     this.userLoggedIn = false;
-  //   },
-  // },
+  return {
+    types,
+    brands,
+    devices,
+    selectedType,
+    selectedBrand,
+    setSelectedType,
+    setSelectedBrand,
+  };
 });
