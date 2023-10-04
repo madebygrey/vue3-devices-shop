@@ -20,7 +20,8 @@
               <input
                 type="text"
                 class="form-control"
-                placeholder="Введите название бренда" />
+                placeholder="Введите название бренда"
+                v-model="newBrand.name" />
             </div>
           </form>
         </div>
@@ -32,7 +33,9 @@
             @click="$emit('onHide', false)">
             Закрыть
           </button>
-          <button type="button" class="btn btn-primary">Добавить</button>
+          <button type="button" class="btn btn-primary" @click="addNewBrand">
+            Добавить
+          </button>
         </div>
       </div>
     </div>
@@ -40,7 +43,18 @@
 </template>
 
 <script setup lang="ts">
+  import { ref } from "vue";
+  import { useDevicesStore } from "@/stores/devices";
   const props = defineProps(["show", "onHide"]);
+  const emits = defineEmits(["onHide"]);
+  const devicesStore = useDevicesStore();
+  const newBrand = ref({ id: Date.now(), name: "" });
+
+  function addNewBrand() {
+    devicesStore.addBrand(newBrand.value);
+    newBrand.value = { id: 0, name: "" };
+    emits("onHide", false);
+  }
 </script>
 
 <style scoped>

@@ -37,13 +37,15 @@
               <input
                 type="email"
                 class="form-control"
-                placeholder="Название устройства" />
+                placeholder="Название устройства"
+                v-model="newDevice.name" />
             </div>
             <div class="mb-3">
               <input
                 type="number"
                 class="form-control"
-                placeholder="Стоимоть устройства" />
+                placeholder="Стоимоть устройства"
+                v-model="newDevice.price" />
             </div>
             <div class="mb-3">
               <input type="file" class="form-control" />
@@ -84,7 +86,9 @@
             @click="$emit('onHide', false)">
             Закрыть
           </button>
-          <button type="button" class="btn btn-primary">Добавить</button>
+          <button type="button" class="btn btn-primary" @click="addNewDevice">
+            Добавить
+          </button>
         </div>
       </div>
     </div>
@@ -99,6 +103,25 @@
   const devicesStore = useDevicesStore();
   const { types, brands } = storeToRefs(devicesStore);
   const props = defineProps(["show", "onHide"]);
+  const emits = defineEmits(["onHide"]);
+  const newDevice = ref({
+    id: Date.now(),
+    name: "",
+    price: 0,
+    rating: 0,
+    img: "",
+  });
+  function addNewDevice() {
+    devicesStore.addDevice(newDevice.value);
+    newDevice.value = {
+      id: 0,
+      name: "",
+      price: 0,
+      rating: 0,
+      img: "",
+    };
+    emits("onHide", false);
+  }
 
   const info = ref([]);
   function addInfo() {

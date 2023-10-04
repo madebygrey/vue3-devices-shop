@@ -60,12 +60,43 @@ export const useDevicesStore = defineStore("devices", () => {
   ]);
   const selectedType = ref({ id: 0, name: "" });
   const selectedBrand = ref({ id: 0, name: "" });
+  const page = ref(1);
+  const totalCount = ref(devices.value.length);
+  const limit = ref(3);
 
   function setSelectedType(state) {
     selectedType.value = state;
   }
   function setSelectedBrand(state) {
     selectedBrand.value = state;
+  }
+  function getDeviceById(id: number) {
+    return devices.value.filter((device) => device.id == id);
+  }
+  function addType(type: { id: number; name: string }) {
+    types.value.push(type);
+  }
+  function addBrand(brand: { id: number; name: string }) {
+    brands.value.push(brand);
+  }
+  function addDevice(device: {
+    id: number;
+    name: string;
+    price: number;
+    rating: number;
+    img: string;
+  }) {
+    devices.value.push(device);
+  }
+
+  function setPage(state: number) {
+    page.value = state;
+  }
+  function setTotalCount(state: number) {
+    totalCount.value = state;
+  }
+  function setLimit(state: number) {
+    limit.value = state;
   }
 
   return {
@@ -76,5 +107,13 @@ export const useDevicesStore = defineStore("devices", () => {
     selectedBrand,
     setSelectedType,
     setSelectedBrand,
+    getDeviceById,
+    addType,
+    addBrand,
+    addDevice,
+    page,
+    totalCount,
+    limit,
+    setPage,
   };
 });

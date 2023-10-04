@@ -18,7 +18,8 @@
               <input
                 type="text"
                 class="form-control"
-                placeholder="Введите название типа" />
+                placeholder="Введите название типа"
+                v-model="newType.name" />
             </div>
           </form>
         </div>
@@ -30,7 +31,9 @@
             @click="$emit('onHide', false)">
             Закрыть
           </button>
-          <button type="button" class="btn btn-primary">Добавить</button>
+          <button type="button" class="btn btn-primary" @click="addNewType">
+            Добавить
+          </button>
         </div>
       </div>
     </div>
@@ -38,7 +41,18 @@
 </template>
 
 <script setup lang="ts">
+  import { useDevicesStore } from "@/stores/devices";
+  import { ref } from "vue";
   const props = defineProps(["show", "onHide"]);
+  const emits = defineEmits(["onHide"]);
+  const devicesStore = useDevicesStore();
+  const newType = ref({ id: Date.now(), name: "" });
+
+  function addNewType() {
+    devicesStore.addType(newType.value);
+    newType.value = { id: 0, name: "" };
+    emits("onHide", false);
+  }
 </script>
 
 <style scoped>
